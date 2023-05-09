@@ -6,7 +6,7 @@ from pprint import pprint
 
 with open('C:/Users/mhammed/Downloads/comments_export2.json', 'r') as f:
         data = json.load(f)
-
+bbox = "9.8,53.4,10.3,53.7"
 Straßen_Kordinaten = {}
 for key in data:
     text = data[key]['text']
@@ -15,7 +15,7 @@ for key in data:
     data[key]['text'] = text
     street_names = re.findall(r"\b[A-Z][a-z]+(?:[A-Z][a-z]+)*(?:strasse|weg|platz|allee|park)\b", text)
         for street_name in street_names:
-            url = f"https://nominatim.openstreetmap.org/search?format=json&q={street_name}"
+            url = f"https://nominatim.openstreetmap.org/search?format=json&q={street_name}&city=hamburg&country=Germany&bounded=1&viewbox={bbox}"
             response = requests.get(url)
             response_data = response.json()
             if response_data:
