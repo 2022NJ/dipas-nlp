@@ -51,6 +51,7 @@ input = importJSON.JSONReader("C:/Users/mhammed/Desktop/comments_export2.json")
 #         folium.Marker(location=[location.latitude, location.longitude], popup=location).add_to(hamburg_map)
 # hamburg_map.save("hamburg_map.html")
 locations = nlpProc.filterLocations(input)
+# print(locations)
 bbox = "9.8,53.4,10.3,53.7"  # Bounding box von Hamburg
 Straßen_Kordinaten = {}
 for street_name in locations:
@@ -62,7 +63,8 @@ for street_name in locations:
         lon = response_data[0]["lon"]
         Straßen_Kordinaten[street_name] = {"latitude": lat, "longitude": lon}
 
-# pprint(Straßen_Kordinaten)
+print(len(Straßen_Kordinaten))
+print(Straßen_Kordinaten)
 map_center = [53.5671 , 10.0271]
 map_osm = folium.Map(location=map_center, zoom_start=13)
 
@@ -72,7 +74,5 @@ for street_name, coords in Straßen_Kordinaten.items():
     marker = folium.Marker([lat, lon], popup=street_name)
     marker.add_to(map_osm)
 
-# print(map_osm)
+# print(len(map_osm))
 map_osm.save("map_osm.html")
-
-
